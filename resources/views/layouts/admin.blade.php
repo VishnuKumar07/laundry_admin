@@ -556,7 +556,6 @@
         <div class="dash-container">
             <aside id="sidebar" class="dash-sidebar offcanvas" role="navigation" aria-label="Main menu">
                 <div class="sidebar-inner">
-
                     <div class="sidebar-scroll">
                         <div>
                             <div class="sidebar-section-title">Overview</div>
@@ -607,6 +606,22 @@
                             </ul>
                         </div>
 
+                        <div>
+                            <div class="sidebar-section-title">Services</div>
+                            <ul class="dash-menu">
+
+                                <li>
+                                    <a href="{{ route('services.index') }}"
+                                    class="{{ request()->routeIs('services*') ? 'active' : '' }}">
+                                        <span class="icon">
+                                            <i class="fa fa-concierge-bell"></i>
+                                        </span>
+                                        <span class="label">Services</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
 
                         <div>
                             <div class="sidebar-section-title">Logs</div>
@@ -724,6 +739,7 @@
                 }
                 $this.select2(options);
             });
+
             $(document).on("click", "#logout_btn", function(e) {
                 e.preventDefault();
 
@@ -742,7 +758,6 @@
                     }
                 });
             });
-
 
             $(function() {
                 const $btn = $('#mobile_menu_btn');

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,6 +19,8 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])
     ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 
     Route::get('/sms-logs', [LogController::class, 'SmsLogs'])->name('sms.logs');
     Route::get('/email-logs', [LogController::class, 'EmailLogs'])->name('email.logs');
