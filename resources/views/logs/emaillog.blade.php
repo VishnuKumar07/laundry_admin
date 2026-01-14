@@ -214,7 +214,7 @@
                     <tbody>
                         @foreach ($emaillogs as $key => $emaillog)
                             <tr>
-                                <td>{{ $key + 1 }}</td>
+                                <td></td>
                                 <td>
                                     {{ $emaillog->user->first_name
                                         ? ucwords(str_replace('_', ' ', $emaillog->user->first_name))
@@ -264,16 +264,17 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('#emaillogTable').DataTable({
+
+            const table = $('#emaillogTable').DataTable({
                 pageLength: 25,
                 lengthMenu: [10, 25, 50, 100],
-                order: [
-                    [5, 'desc']
+
+                order: [[8, 'desc']],
+
+                columnDefs: [
+                    { orderable: false, targets: [0, 4] }
                 ],
-                columnDefs: [{
-                    orderable: false,
-                    targets: [4]
-                }],
+
                 language: {
                     search: "Search",
                     lengthMenu: "Show _MENU_ entries",
@@ -283,6 +284,15 @@
                         previous: "‹",
                         next: "›"
                     }
+                },
+
+                drawCallback: function () {
+                    const api = this.api();
+                    const pageInfo = api.page.info();
+
+                    api.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+                        cell.innerHTML = pageInfo.recordsTotal - (pageInfo.start + i);
+                    });
                 }
             });
 
